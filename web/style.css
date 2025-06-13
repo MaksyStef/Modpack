@@ -73,9 +73,13 @@ h1.announcement {
 }
 
 .tabs__export {
+  width: fit-content;
+  margin: 0 auto;
   grid-area: 1 / 1 / 2 / 2;
 }
 .tabs__import {
+  margin: 0 auto;
+  width: fit-content;
   grid-area: 1 / 2 / 2 / 3;
 }
 
@@ -119,4 +123,22 @@ h1.announcement {
 }
 .tabs:has(.tabs__import.active) tabs__export-form {
   display: none;
+}
+
+.dropdown {
+  min-width: 180px;
+  max-width: 420px;
+}
+.dropdown__selected > .dropdown__item {
+  margin-bottom: 6px;
+  border-radius: 8px 8px 0 0;
+}
+.dropdown__list > .dropdown__item {
+  
+}
+.dropdown__item {
+  padding: 12px;  
+  width: 100%;
+  color: var(--black);
+  background-color: var(--white);
 }

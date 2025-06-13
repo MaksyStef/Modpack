@@ -1,0 +1,141 @@
+@font-face {
+  font-family: "minecrafter";
+  src: url('media/Minecrafter-MA3Dw.ttf');
+};
+@font-face {
+  font-family: "Open";
+  src: url('media/OpenSans.ttf');
+}
+
+* {
+  --black:  #080705;
+  --grey:   #40434e;
+  --brown:  #D66853;
+  --white:  #EEE5E9;
+
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  color: var(--white);
+  background-color: var(--black);
+}
+.wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  padding: 12px;
+}
+
+hr.separator {
+  border: none;
+  display: block;
+  width: auto;
+  height: 2px;
+  background-color: var(--grey);
+}
+
+h1.announcement {
+  cursor: default;
+  user-select: none;
+  display: block;
+  margin: 24px auto;
+  width: 320px;
+  text-align: center;
+  font-family: 'minecrafter';
+  font-weight: 400;
+  font-size: 3pc;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.tabs {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 2;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  margin: 4px auto;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+.tabs::after {
+  content: '|';
+  display: inline-block;
+  position: absolute;
+  top: 1.2pc;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.tabs__export {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.tabs__import {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.tabs__export-form, .tabs__import-form {
+  grid-area: 2 / 1 / 3 / 3;
+}
+.tabs__export, .tabs__import {
+  font-size: 1.2pc;
+  transition: 0.3s;
+  padding: 8px;
+  color: var(--grey);
+  cursor: default;
+  user-select: none;
+  position: relative;
+}
+.tabs__export::after, .tabs__import::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 2px;
+  top: 100%;
+  left: 50%;
+  translate: -50% 0;
+  transition: 0.3s;
+  color: var(--grey);
+}
+.tabs > span {
+  cursor: default;
+  user-select: none;
+}
+.tabs > .active {
+  color: var(--white);
+}
+.tabs > .active::after {
+  width: 100%;
+  background-color: var(--white);
+}
+.tabs:has(.tabs__export.active) tabs__import-form {
+  display: none;
+}
+.tabs:has(.tabs__import.active) tabs__export-form {
+  display: none;
+}

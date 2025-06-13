@@ -8,3 +8,4 @@ let switchInactive = (e)=> {
 
 exportSwitch.addEventListener('click', switchInactive);
 importSwitch.addEventListener('click', switchInactive);
+console.log(eel.get_instances())

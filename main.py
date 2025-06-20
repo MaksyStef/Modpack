@@ -3,15 +3,19 @@ import json
 import screeninfo
 import os
 
+allowed_instance_types = [
+  "custom",
+]
+
 @eel.expose
 def get_instances():
+  global allowed_instance_types
   try:
     with open(os.path.expanduser('~/AppData/Roaming/.minecraft/launcher_profiles.json'), 'r', encoding="UTF-8") as instances:
       instances = json.loads(instances.read())["profiles"]
-      for instance_id, instance_props in instances.items():
-        if instance_props.type != "custom":
-          instances.pop(instance_id)
-      print(instances)
+      for inst_id, inst_props in instances.copy().items():
+        if inst_props["type"] not in allowed_instance_types:
+          instances.pop(inst_id)
       return instances
   except Exception as error:
     return error.__str__()

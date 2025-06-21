@@ -166,3 +166,6 @@ h1.announcement {
   background-color: var(--white);
   user-select: none;
 }
+.dropdown__item img {
+  margin: auto 0;
+}

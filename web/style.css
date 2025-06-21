@@ -141,4 +141,5 @@ h1.announcement {
   width: 100%;
   color: var(--black);
   background-color: var(--white);
+  user-select: none;
 }

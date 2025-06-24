@@ -1,4 +1,5 @@
 import eel
+from tkinter import Tk, filedialog
 import json
 import screeninfo
 import os
@@ -6,6 +7,9 @@ import os
 allowed_instance_types = [
   "custom",
 ]
+
+tk_root = Tk()
+tk_root.withdraw()
 
 @eel.expose
 def get_instances():
@@ -19,6 +23,10 @@ def get_instances():
       return instances
   except Exception as error:
     return error.__str__()
+
+@eel.expose
+def export_instance(instance):
+  filedialog.asksaveasfile(mode='w', filetypes=[".zip"])
 
 display = screeninfo.get_monitors()[0]
 

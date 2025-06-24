@@ -1,7 +1,7 @@
 let exportSwitch = document.querySelector('.tabs__export');
 let importSwitch = document.querySelector('.tabs__import');
 
-let switchInactive = (e)=> {
+const switchInactive = (e)=> {
   e.target.parentElement.querySelector('.active').classList.remove('active');
   e.target.classList.add('active');
 }
@@ -12,7 +12,7 @@ importSwitch.addEventListener('click', switchInactive);
 const dropdownList = document.querySelector('.dropdown__list');
 const dropdownSelected = document.querySelector('.dropdown__selected');
 
-let createDropdownItem = (id, props) => {
+const createDropdownItem = (id, props) => {
   // Create element
   let item = document.createElement('div');
   item.className = "dropdown__item";
@@ -40,11 +40,15 @@ let createDropdownItem = (id, props) => {
   dropdownList.appendChild(item);
 }
 
-let selectDropdownItem = (dropdownItem) => {
+const selectDropdownItem = (dropdownItem) => {
   // Append method moves an item from Parent_A to Parent_B
   dropdownList.appendChild(dropdownSelected.firstChild)
   dropdownSelected.appendChild(dropdownItem);
 }
+
+const getSelectedInstance = () => dropdownSelected.firstElementChild.getProps()
+
+
 eel.get_instances()()
   .then((data)=> {
     for (const [id, props] of Object.entries(data)) {
@@ -52,3 +56,9 @@ eel.get_instances()()
     }
     selectDropdownItem(dropdownList.firstElementChild);
   })
+
+const exportButton = document.querySelector('.button_export');
+exportButton.addEventListener('click', ()=> {
+  let instance = getSelectedInstance();
+  eel.export_instance(instance);
+})

@@ -8,9 +8,6 @@ allowed_instance_types = [
   "custom",
 ]
 
-tk_root = Tk()
-tk_root.withdraw()
-
 @eel.expose
 def get_instances():
   global allowed_instance_types
@@ -26,7 +23,21 @@ def get_instances():
 
 @eel.expose
 def export_instance(instance):
-  filedialog.asksaveasfile(mode='w', filetypes=[".zip"])
+  root = Tk()
+  root.withdraw()
+  root.attributes('-topmost', True)  # Make sure the dialog is on top
+  filetypes = [("Minecraft Modpack", "*.zip")]
+  file = filedialog.asksaveasfile(
+    mode='w', 
+    filetypes=filetypes, 
+    defaultextension=filetypes,
+    parent=root
+  )
+
+  if file:
+    pass
+
+  root.destroy()
 
 display = screeninfo.get_monitors()[0]
 

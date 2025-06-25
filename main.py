@@ -2,6 +2,7 @@ import eel
 from tkinter import Tk, filedialog
 import json
 import screeninfo
+import zipfile
 import os
 
 allowed_instance_types = [
@@ -17,6 +18,7 @@ def get_instances():
       for inst_id, inst_props in instances.copy().items():
         if inst_props["type"] not in allowed_instance_types:
           instances.pop(inst_id)
+      print(instances)
       return instances
   except Exception as error:
     return error.__str__()
@@ -27,8 +29,10 @@ def export_instance(instance):
   root.withdraw()
   root.attributes('-topmost', True)  # Make sure the dialog is on top
   filetypes = [("Minecraft Modpack", "*.zip")]
+  filename = instance[1]['name']
   file = filedialog.asksaveasfile(
     mode='w', 
+    initialfile=filename,
     filetypes=filetypes, 
     defaultextension=filetypes,
     parent=root
@@ -39,12 +43,14 @@ def export_instance(instance):
 
   root.destroy()
 
-display = screeninfo.get_monitors()[0]
 
-app_width = display.width//2
-app_height = display.height/1.5
-off_x = (display.width - app_width) // 2
-off_y = (display.height - app_height) // 2
+if __name__ == "__main__":
+  display = screeninfo.get_monitors()[0]
 
-eel.init('web')
-eel.start('index.html', size=(app_width, app_height), position=(off_x, off_y))
+  app_width = display.width//2
+  app_height = display.height/1.5
+  off_x = (display.width - app_width) // 2
+  off_y = (display.height - app_height) // 2
+
+  eel.init('web')
+  eel.start('index.html', size=(app_width, app_height), position=(off_x, off_y))

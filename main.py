@@ -4,6 +4,7 @@ import json
 import screeninfo
 import zipfile
 import os
+import pathlib
 
 allowed_instance_types = [
   "custom",
@@ -29,19 +30,53 @@ def export_instance(instance):
   root.withdraw()
   root.attributes('-topmost', True)  # Make sure the dialog is on top
   filetypes = [("Minecraft Modpack", "*.zip")]
-  filename = instance[1]['name']
-  file = filedialog.asksaveasfile(
-    mode='w', 
+  filename = instance['name']
+  game_dir = pathlib.Path(instance['gameDir'])
+  file = filedialog.asksaveasfilename(
     initialfile=filename,
     filetypes=filetypes, 
     defaultextension=filetypes,
     parent=root
   )
-
-  if file:
-    pass
-
   root.destroy()
+
+  included_folders = [
+    "config",
+    "mods",
+    "resourcepacks",
+    "shaderpacks",
+  ]
+  included_files = [
+    'options.txt',
+  ]
+
+  def add_directory(directory_path, zip_path):
+    print('try to write to: ', zip_path, directory_path)
+    with zipfile.ZipFile(zip_path, 'a') as zipf:
+      for root, dirs, files in os.walk(directory_path):
+        for file in files:
+          zipf.write(os.path.join(root, file), 
+          os.path.relpath(os.path.join(root, file), 
+          os.path.join(directory_path, '..')))
+
+  try:
+    # Add folders and their contents
+     for current_item in game_dir.iterdir():
+        print('current item: ', current_item)
+        if current_item.name not in included_folders and current_item.name not in included_files:
+          print('skip item...')
+          continue
+        if current_item.is_dir():
+          add_directory(current_item, file)
+        if current_item.is_file():
+          with zipfile.ZipFile(file, 'a') as zipf:
+            zipf.write(current_item, current_item.relative_to(game_dir))
+        
+
+  except Exception as e:
+    raise e
+
+  return file
 
 
 if __name__ == "__main__":

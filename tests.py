@@ -30,7 +30,7 @@ class TestTkExtended(unittest.TestCase):
         "mods",
         "options.txt"
     ]
-    result = tk_extend.ask_directory_tree_with_checkboxes(base, prechecked_paths)
+    selected = tk_extend.ask_directory_tree_with_checkboxes(base, prechecked_paths)
     print("Selected paths:")
-    for r in result:
-        print(r)
+    for path in selected:
+        print(path)

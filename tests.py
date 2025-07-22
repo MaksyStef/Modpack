@@ -1,4 +1,5 @@
 import main
+import tk_extend
 
 import unittest
 import os
@@ -21,3 +22,15 @@ class TestExportInstance(unittest.TestCase):
     expected = os.path.expanduser('Downloads\\'+self.instance['name']+'.zip')
     self.assertTrue(os.path.isfile(exported))
     
+class TestTkExtended(unittest.TestCase):
+  def test_directory_tree_checklist(self):
+    base = "C:\\Users\\steva\\AppData\\Roaming\\.minecraft-1-20-1"
+    prechecked_paths = [
+        "resourcepacks",
+        "mods",
+        "options.txt"
+    ]
+    result = tk_extend.ask_directory_tree_with_checkboxes(base, prechecked_paths)
+    print("Selected paths:")
+    for r in result:
+        print(r)

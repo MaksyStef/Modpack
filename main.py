@@ -19,7 +19,6 @@ def get_instances():
       for inst_id, inst_props in instances.copy().items():
         if inst_props["type"] not in allowed_instance_types:
           instances.pop(inst_id)
-      print(instances)
       return instances
   except Exception as error:
     return error.__str__()
@@ -51,7 +50,6 @@ def export_instance(instance):
   ]
 
   def add_directory(directory_path, zip_path):
-    print('try to write to: ', zip_path, directory_path)
     with zipfile.ZipFile(zip_path, 'a') as zipf:
       for root, dirs, files in os.walk(directory_path):
         for file in files:
@@ -62,7 +60,6 @@ def export_instance(instance):
   try:
     # Add folders and their contents
      for current_item in game_dir.iterdir():
-        print('current item: ', current_item)
         if current_item.name not in included_folders and current_item.name not in included_files:
           print('skip item...')
           continue
